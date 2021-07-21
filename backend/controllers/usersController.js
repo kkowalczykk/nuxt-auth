@@ -40,9 +40,11 @@ const userInfo = async (req, res) => {
     try{
         const user = await getUser(req.userID) ;
         res.status(200).json({
-            id: user._id,
-            login: user.login,
-            email: user.email
+            user: {
+                id: user._id,
+                login: user.login,
+                email: user.email
+            }
         });
     }
     catch(e){

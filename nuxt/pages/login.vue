@@ -61,10 +61,21 @@ export default Vue.extend({
 
     },
     methods: {
-        handleLoginSubmit: (event: Event, loginForm: LoginForm) => {
-            event.preventDefault();
-            let { login, password } = loginForm;
-            console.log(login, password);
+        handleLoginSubmit: async function (event: Event, loginForm: LoginForm) {
+            try {
+                event.preventDefault();
+                let { login, password } = loginForm;
+                await this.$auth.loginWith('local', {
+                    data: {
+                        login,
+                        password
+                    }
+                })
+                console.log(this.$auth);
+                await this.$router.push('/protected');
+            } catch (e) {
+                console.log(e);
+            }
         }
     }
 }

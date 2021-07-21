@@ -41,9 +41,25 @@ export default {
 
     axios: {
         // proxy: true
+        baseURL: 'http://localhost:5000/api',
+        credentials: false,
+        proxyHeaders: false
     },
     auth: {
-
+        strategies: {
+            local: {
+                // This settings depends on your backend and how it deals with sending and receiving data
+                endpoints: {
+                    login: { url: '/users/login', method: 'post', propertyName: 'data.token' },
+                    user: { url: '/users/', method: 'get', propertyName: 'data' },
+                    logout: false
+                },
+                token: {
+                    name: 'x-auth-token',
+                    type: ''
+                }
+            }
+        }
     },
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {}
